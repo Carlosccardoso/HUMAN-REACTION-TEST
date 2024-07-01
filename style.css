@@ -66,9 +66,8 @@ body {
     display: flex;
     border-radius: 4px;
     justify-content: center;
-    padding: 20vh;
-    width: 20vw;
-    max-width: 20vw;
+    width: 80vw;
+    height: 50vh;
     align-items: center;
     color: var(--color-second);
     -webkit-box-shadow: -1px 0px 36px 0px rgba(0, 0, 0, 0.75);
