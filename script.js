@@ -5,7 +5,6 @@ let timeout = null;
 let media = [];
 let id = 1;
 
-
 const escondeS = document.querySelector("#segundos");
 const escondeMS = document.querySelector("#milissegundos");
 escondeS.classList.add("none");
@@ -29,7 +28,11 @@ function comecarTest() {
 
     corDaBox.onclick = function () {
         span.innerHTML = "Aguarde";
-        corDaBox.onclick = null;
+        corDaBox.onclick = function(){
+            pararTudo();
+            span.innerHTML = "APRESSADINHO";
+        };
+
         iniciarContagem();
     };
 
@@ -37,15 +40,16 @@ function comecarTest() {
     milissegundos = 0;
     document.getElementById('segundos').innerHTML = segundos;
     document.getElementById('milissegundos').innerHTML = milissegundos;
+    document.getElementById("media").innerHTML = ""
 }
 
 function iniciarContagem() {
     const corDaBox = document.querySelector(".box");
     const span = document.getElementById("p");
-
     const aleatorio = Math.floor(Math.random() * 10) + 1;
-    const numero = Math.random()
-    console.log(numero)
+    const numero = Math.random();
+    console.log(numero);
+
     if (timeout != null) {
         clearTimeout(timeout);
     }
@@ -60,21 +64,20 @@ function iniciarContagem() {
                 id++;
                 if (id === 6) {
                     const mediaValor = mediaTempo(media);
-                    document.getElementById("media").innerHTML = `Média dos tempos: ${mediaValor}ms`
+                    document.getElementById("media").innerHTML = `Média dos tempos: ${mediaValor}ms`;
                     console.log(`Média dos tempos: ${mediaValor}ms`);
-                    
                 }
             };
         } else {
             corDaBox.style.backgroundColor = "red";
             span.innerHTML = "VERMELHO";
             corDaBox.onclick = function () {
-                let respostas = ["Pré Fire amigão?" , "Calma pai, ta muito apressado" , "Perde tudo para deixar de ser feio","Tenho uma noticia triste para você "]
-                let umdoistres = Math.floor(Math.random() * 3) + 1
+                let respostas = ["Pré Fire amigão?", "Calma pai, ta muito apressado", "Perde tudo para deixar de ser feio", "Tenho uma notícia triste para você"];
+                let umdoistres = Math.floor(Math.random() * 3) + 1;
                 span.innerHTML = respostas[umdoistres];
                 corDaBox.onclick = null;
-                media = []
-                id = 1              
+                media = [];
+                id = 1;
                 return clearTimeout(reload);
             };
             const reload = setTimeout(() => {
@@ -110,7 +113,7 @@ function pararContagem() {
     const tempoMs = segundos * 1000 + milissegundos;
     span.innerHTML = "Tempo: " + tempoMs + "ms";
     corDaBox.onclick = null;
-    console.log(tempoMs  + " ID",id)
+    console.log(tempoMs + " ID", id);
     media.push(tempoMs);
 }
 
@@ -121,3 +124,21 @@ function resetarBox() {
     corDaBox.style.backgroundColor = "rgba(0,0,0,0.8)";
     span.innerHTML = "Aguarde";
 }
+
+function pararTudo() {
+    clearInterval(intervalId);
+    clearTimeout(timeout);
+    segundos = 0;
+    milissegundos = 0;
+    media = [];
+    id = 1;
+    const corDaBox = document.querySelector(".box");
+    const span = document.getElementById("p");
+    corDaBox.style.backgroundColor = "rgba(0,0,0,0.8)";
+    span.innerHTML = "Clique e aguarde o verde";
+    document.getElementById('segundos').innerHTML = segundos;
+    document.getElementById('milissegundos').innerHTML = milissegundos;
+    document.getElementById("media").innerHTML = "";
+}
+
+comecarTest();
