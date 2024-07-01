@@ -39,6 +39,7 @@ body {
     align-self: center;
     max-height: 50vh;
     margin-bottom: 25px;
+    flex-direction: column;
 }
 
 
