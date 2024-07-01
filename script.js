@@ -5,6 +5,7 @@ let timeout = null;
 let media = [];
 let id = 1;
 
+
 const escondeS = document.querySelector("#segundos");
 const escondeMS = document.querySelector("#milissegundos");
 escondeS.classList.add("none");
