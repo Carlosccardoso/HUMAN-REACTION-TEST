@@ -9,6 +9,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
         rel="stylesheet">
+    <link rel="shortcut icon" href="icon.png" type="image/x-icon">
     <title>Human Reaction Test</title>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -27,90 +28,8 @@
     <div class="btn">
         <button class="button-85" onclick="comecarTest()">Começar</button>
     </div>
+
+    <script src="script.js"></script>
 </body>
 
 </html>
-
-<script>
-    let segundos = 0;
-    let milissegundos = 0;
-    let intervalId;
-    var timeout = null;
-
-    var escondeS = document.querySelector("#segundos")
-    var escondeMS = document.querySelector("#milissegundos")
-    escondeS.classList.add("none")
-    escondeMS.classList.add("none")
-
-    function incrementarTempo() {
-        milissegundos += 10;
-        if (milissegundos === 1000) {
-            segundos++;
-            milissegundos = 0;
-        }
-        document.getElementById('segundos').innerHTML = segundos;
-        document.getElementById('milissegundos').innerHTML = milissegundos;
-    }
-
-    function comecarTest() {
-        var corDaBox = document.querySelector(".box");
-        var span = document.getElementById("p");
-        span.innerHTML = "Clique e aguarde o verde";
-        corDaBox.style.backgroundColor = "rgba(0,0,0,0.8)"
-
-
-        const aleatorio = Math.floor(Math.random() * 10) + 1;
-
-        corDaBox.onclick = function () {
-            span.innerHTML = "Aguarde";
-            corDaBox.onclick = null;
-
-            function contagem() {
-                const numero = Math.random()
-                console.log("numero ", numero)
-                var reload = null;
-
-                if (timeout != null) {
-                    clearTimeout(timeout);
-                }
-
-                timeout = setTimeout(function () {
-                    if (numero < 0.5) {
-                        corDaBox.style.backgroundColor = "green"
-                        span.innerHTML = "VERDE";
-                        intervalId = setInterval(incrementarTempo, 10);
-                        corDaBox.onclick = function () {
-                            clearInterval(intervalId);
-
-                            var realMs = `${segundos == 0 ? '' : segundos}${milissegundos}ms`;
-
-                            span.innerHTML = "Tempo: " + realMs;
-                            corDaBox.onclick = null;
-                        };
-
-                    } else {
-                        corDaBox.style.backgroundColor = "red"
-                        span.innerHTML = "VERMELHO";
-                        corDaBox.onclick = function () {
-                            span.innerHTML = "DEU RUIM";
-                            corDaBox.onclick = null;
-                            return clearTimeout(reload)
-                        };
-                        var reload = setTimeout(() => {
-                            corDaBox.style.backgroundColor = "rgba(0,0,0,0.8)"
-                            span.innerHTML = "Aguarde"
-                            contagem();
-                        }, 2000);
-                    }
-                }, aleatorio * 1000);
-            }
-
-            contagem();
-
-        };
-        segundos = 0;
-        milissegundos = 0;
-        document.getElementById('segundos').innerHTML = segundos;
-        document.getElementById('milissegundos').innerHTML = milissegundos;
-    }
-</script>
