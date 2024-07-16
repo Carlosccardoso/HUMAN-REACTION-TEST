@@ -142,4 +142,4 @@ function pararTudo() {
     document.getElementById("media").innerHTML = "";
 }
 
-comecarTest();
+
